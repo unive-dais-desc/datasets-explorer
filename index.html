@@ -210,7 +210,6 @@ dl.label dd{margin:0;overflow-wrap:anywhere}
           <div class="years"><input type="number" id="y0" data-i18n-aria="from" aria-label="Dal" inputmode="numeric"><span>–</span><input type="number" id="y1" data-i18n-aria="to" aria-label="Al" inputmode="numeric"></div>
         </div>
         <div class="field"><label for="au" data-i18n="authors">Autore DAIS</label><select id="au"></select></div>
-        <div class="field"><label for="ssd" data-i18n="ssd">Settore scientifico-disciplinare</label><select id="ssd"></select></div>
         <div class="field"><label for="kw" data-i18n="keyword">Parola chiave</label><select id="kw"></select></div>
         <div class="chips"><label class="chip"><input type="checkbox" id="fNew"><span class="dot" style="background:var(--r-pangaea)"></span><span data-i18n="newOnly">Solo inserimenti recenti</span></label></div>
         <div class="field"><label for="sort" data-i18n="sort">Ordina per</label>
@@ -276,20 +275,20 @@ const I18N = {
     subtitle:'Dataset di interesse ambientale depositati dai gruppi di ricerca · DAIS, Ca’ Foscari University of Venice',
     search:'Cerca', searchPh:'Titolo, autore, parola chiave, abstract, DOI…',
     repository:'Repository', year:'Anno di pubblicazione', from:'Dal', to:'Al',
-    authors:'Autore DAIS', ssd:'Settore scientifico-disciplinare', keyword:'Parola chiave',
-    allAuthors:'Tutti gli autori', allSsd:'Tutti i settori', allKw:'Tutte le parole chiave',
+    authors:'Autore DAIS', keyword:'Parola chiave',
+    allAuthors:'Tutti gli autori', allKw:'Tutte le parole chiave',
     newOnly:'Solo inserimenti recenti', sort:'Ordina per', sortAuto:'Pertinenza alla ricerca',
     sortNew:'Anno, dal più recente', sortOld:'Anno, dal meno recente', sortAz:'Titolo A–Z',
     reset:'Azzera filtri', csv:'Esporta CSV', bib:'Esporta BibTeX', share:'Copia link', reload:'Aggiorna dati dal foglio',
     loading:'Caricamento dei dati…', datasets:'dataset', repos:'repository', people:'autori DAIS',
-    topKw:'Parole chiave più frequenti', topAu:'Autori DAIS più presenti', topSsd:'Settori scientifico-disciplinari',
+    topKw:'Parole chiave più frequenti', topAu:'Autori DAIS più presenti',
     sortedBy:{rel:'ordinati per pertinenza', new:'dal più recente', old:'dal meno recente', az:'in ordine alfabetico'},
     showMore:n=>`Mostra altri ${n}`, noMatch:'Nessun dataset corrisponde ai filtri. Prova a toglierne uno o a usare un termine più generale.',
     yearHover:(y,n)=>`${y}: ${n} dataset`, yearsSel:(a,b)=>a===b?`Anno ${a}`:`Anni ${a}–${b}`, yearHint:'Tocca un anno o trascina per scegliere un intervallo',
     openRepo:'Apri nel repository', copyCite:'Copia citazione', copyBib:'Copia BibTeX', copied:'Copiato negli appunti',
     copyFail:'Copia non riuscita: seleziona il testo e copialo a mano', linkCopied:'Link alla ricerca copiato',
     cite:'Come citare', daisAuthors:'Autori DAIS', abstract:'Descrizione', readMore:'Leggi tutto', readLess:'Riduci',
-    keywords:'Parole chiave', ids:'Identificativi', doi:'DOI', curVer:'Versione', related:'DOI collegati', ssdShort:'Settore',
+    keywords:'Parole chiave', ids:'Identificativi', doi:'DOI', curVer:'Versione', related:'DOI collegati',
     id:'ID catalogo', isNew:'Nuovo', pos:(i,n)=>`${i} / ${n}`, noAbstract:'Descrizione non disponibile.',
     readFail:m=>`Lettura dei dati non riuscita: ${m}. Riprova con “Aggiorna dati dal foglio”.`, notConfigured:'Indirizzo API non configurato: imposta API_URL in index.html.',
     offline:'Mostro la copia salvata: il foglio non risponde.', updated:'Dati aggiornati', readAt:'letto alle', locale:'it-IT',
@@ -300,20 +299,20 @@ const I18N = {
     subtitle:'Environmental datasets deposited by research groups · DAIS, Ca’ Foscari University of Venice',
     search:'Search', searchPh:'Title, author, keyword, abstract, DOI…',
     repository:'Repository', year:'Publication year', from:'From', to:'To',
-    authors:'DAIS author', ssd:'Scientific-disciplinary sector', keyword:'Keyword',
-    allAuthors:'All authors', allSsd:'All sectors', allKw:'All keywords',
+    authors:'DAIS author', keyword:'Keyword',
+    allAuthors:'All authors', allKw:'All keywords',
     newOnly:'Recent additions only', sort:'Sort by', sortAuto:'Search relevance',
     sortNew:'Year, newest first', sortOld:'Year, oldest first', sortAz:'Title A–Z',
     reset:'Reset filters', csv:'Export CSV', bib:'Export BibTeX', share:'Copy link', reload:'Reload data from sheet',
     loading:'Loading data…', datasets:'datasets', repos:'repositories', people:'DAIS authors',
-    topKw:'Most frequent keywords', topAu:'Most frequent DAIS authors', topSsd:'Scientific-disciplinary sectors',
+    topKw:'Most frequent keywords', topAu:'Most frequent DAIS authors',
     sortedBy:{rel:'sorted by relevance', new:'newest first', old:'oldest first', az:'alphabetical'},
     showMore:n=>`Show ${n} more`, noMatch:'No dataset matches the filters. Try removing one or using a broader term.',
     yearHover:(y,n)=>`${y}: ${n} ${n===1?'dataset':'datasets'}`, yearsSel:(a,b)=>a===b?`Year ${a}`:`Years ${a}–${b}`, yearHint:'Tap a year or drag to choose a range',
     openRepo:'Open in repository', copyCite:'Copy citation', copyBib:'Copy BibTeX', copied:'Copied to clipboard',
     copyFail:'Copy failed: select the text and copy it manually', linkCopied:'Link to this search copied',
     cite:'How to cite', daisAuthors:'DAIS authors', abstract:'Description', readMore:'Read more', readLess:'Show less',
-    keywords:'Keywords', ids:'Identifiers', doi:'DOI', curVer:'Version', related:'Related DOIs', ssdShort:'Sector',
+    keywords:'Keywords', ids:'Identifiers', doi:'DOI', curVer:'Version', related:'Related DOIs',
     id:'Catalogue ID', isNew:'New', pos:(i,n)=>`${i} / ${n}`, noAbstract:'No description available.',
     readFail:m=>`Could not read the data: ${m}. Try “Reload data from sheet”.`, notConfigured:'API address not configured: set API_URL in index.html.',
     offline:'Showing the saved copy: the sheet is not responding.', updated:'Data updated', readAt:'read at', locale:'en-GB',
@@ -328,7 +327,7 @@ const T = k => I18N[LANG][k];
    STATO E UTILITÀ
    ===================================================================== */
 let DATA = [], BY_ID = {}, YMIN = 0, YMAX = 0, REPOS = [], META = null;
-const S = { q:'', repoOff:new Set(), au:'', ssd:'', kw:'', y0:null, y1:null, onlyNew:false, sort:'auto', limit:50, open:null };
+const S = { q:'', repoOff:new Set(), au:'', kw:'', y0:null, y1:null, onlyNew:false, sort:'auto', limit:50, open:null };
 let RESULTS = [];
 
 const $ = id => document.getElementById(id);
@@ -392,7 +391,7 @@ function init(payload){
 }
 
 function prep(r){
-  r.kw = r.kw || []; r.dais = r.dais || []; r.ssd = r.ssd || []; r.orcid = r.orcid || {}; r.versions = r.versions || [];
+  r.kw = r.kw || []; r.dais = r.dais || []; r.orcid = r.orcid || {}; r.versions = r.versions || [];
   const m = String(r.cite||'').match(/^(.*?)\s*\((\d{4})\)/);
   r._authors = m ? m[1].split(/\s*;\s*/).filter(Boolean) : r.dais.slice();
   const dtok = r.dais.map(d => flat(d).trim().split(' '));
@@ -400,7 +399,7 @@ function prep(r){
   r._t = flat(r.title); r._kw = flat(r.kw.join(' '));
   r._au = flat(r._authors.join(' ') + ' ' + r.dais.join(' '));
   r._ab = flat(r.abstract);
-  r._h = r._t + r._kw + r._au + r._ab + flat(r.doi) + flat(r.id) + flat(r.ssd.join(' ')) + flat(r.repo);
+  r._h = r._t + r._kw + r._au + r._ab + flat(r.doi) + flat(r.id) + flat(r.repo);
   r._new = /^nuov/i.test(r.status || '');
   return r;
 }
@@ -425,7 +424,6 @@ function passes(r, skip, qt){
   if (skip !== 'repo' && S.repoOff.has(r.repo)) return false;
   if (skip !== 'year' && S.y0 != null && !(r.year >= S.y0 && r.year <= S.y1)) return false;
   if (skip !== 'au' && S.au && !r.dais.includes(S.au)) return false;
-  if (skip !== 'ssd' && S.ssd && !r.ssd.includes(S.ssd)) return false;
   if (skip !== 'kw' && S.kw && !r.kw.includes(S.kw)) return false;
   if (skip !== 'new' && S.onlyNew && !r._new) return false;
   return true;
@@ -472,12 +470,12 @@ function render(){
   writeHash();
 }
 
+/* Totali fissi dell'intero archivio: non dipendono dai filtri */
 function renderCounts(){
-  const au = new Set(), rp = new Set();
-  RESULTS.forEach(r => { r.dais.forEach(a => au.add(a)); rp.add(r.repo); });
+  const au = new Set(); DATA.forEach(r => r.dais.forEach(a => au.add(a)));
   $('counts').innerHTML =
-    `<span><b>${fmt(RESULTS.length)}</b> / ${fmt(DATA.length)} ${T('datasets')}</span>` +
-    `<span><b>${rp.size}</b> ${T('repos')}</span>` +
+    `<span><b>${fmt(DATA.length)}</b> ${T('datasets')}</span>` +
+    `<span><b>${REPOS.length}</b> ${T('repos')}</span>` +
     `<span><b>${au.size}</b> ${T('people')}</span>`;
 }
 function renderStatus(){
@@ -502,7 +500,6 @@ function renderSelects(qt){
   const byCount = (a,b) => b[1]-a[1] || a[0].localeCompare(b[0]);
   const byName = (a,b) => a[0].localeCompare(b[0]);
   fillSelect($('au'), facet('au', r => r.dais, qt), T('allAuthors'), S.au, byName);
-  fillSelect($('ssd'), facet('ssd', r => r.ssd, qt), T('allSsd'), S.ssd, byName);
   fillSelect($('kw'), facet('kw', r => r.kw, qt), T('allKw'), S.kw, byCount);
   $('fNew').checked = S.onlyNew;
   $('sort').value = S.sort;
@@ -590,11 +587,9 @@ function topBars(title, kind, counts, current){
   return `<div><h3>${esc(title)}</h3><div class="bars">${top.map(([v,n]) => `<button type="button" class="bar" data-set="${kind}" data-v="${esc(v)}" aria-pressed="${current===v}"><span class="t" style="--w:${(n/max*100).toFixed(1)}%"><span>${esc(v)}</span></span><span class="n">${fmt(n)}</span></button>`).join('')}</div></div>`;
 }
 function renderPanel(){
-  const kw = new Map(), au = new Map(), ss = new Map();
-  RESULTS.forEach(r => { r.kw.forEach(k => kw.set(k, (kw.get(k)||0)+1)); r.dais.forEach(a => au.set(a, (au.get(a)||0)+1)); r.ssd.forEach(s => ss.set(s, (ss.get(s)||0)+1)); });
-  $('panel').innerHTML = RESULTS.length
-    ? topBars(T('topKw'), 'kw', kw, S.kw) + topBars(T('topAu'), 'au', au, S.au) + topBars(T('topSsd'), 'ssd', ss, S.ssd)
-    : '';
+  const kw = new Map(), au = new Map();
+  RESULTS.forEach(r => { r.kw.forEach(k => kw.set(k, (kw.get(k)||0)+1)); r.dais.forEach(a => au.set(a, (au.get(a)||0)+1)); });
+  $('panel').innerHTML = RESULTS.length ? topBars(T('topKw'), 'kw', kw, S.kw) + topBars(T('topAu'), 'au', au, S.au) : '';
 }
 
 /* ---- elenco dei risultati */
@@ -670,7 +665,6 @@ function openDetail(id, silent){
       <dt>${esc(T('doi'))}</dt><dd><a class="mono" href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">${esc(r.doi)}</a></dd>
       ${r.version ? `<dt>${esc(T('curVer'))}</dt><dd>${esc(r.version)}</dd>` : ''}
       ${r.versions.length ? `<dt>${esc(T('related'))}</dt><dd>${r.versions.map(d => `<a class="mono" href="https://doi.org/${esc(d)}" target="_blank" rel="noopener">${esc(d)}</a>`).join('<br>')}</dd>` : ''}
-      ${r.ssd.length ? `<dt>${esc(T('ssdShort'))}</dt><dd>${r.ssd.map(s => `<button type="button" class="linkbtn" data-set="ssd" data-v="${esc(s)}">${esc(s)}</button>`).join('<br>')}</dd>` : ''}
       <dt>${esc(T('id'))}</dt><dd class="mono">${esc(r.id)}</dd>
     </dl></div>`;
   $('cpCite').onclick = () => copy(r.cite);
@@ -717,8 +711,8 @@ function download(name, text, mime){
 }
 const csvCell = v => { v = String(v==null?'':v); return /[",\n;]/.test(v) ? '"' + v.replace(/"/g,'""') + '"' : v; };
 function exportCsv(){
-  const head = ['ID','Anno','Titolo','Repository','DOI','URL','Autori','Autori DAIS','Settore scientifico-disciplinare','Parole chiave','Citazione'];
-  const rows = RESULTS.map(r => [r.id, r.year, r.title, r.repo, r.doi, r.url, r._authors.join('; '), r.dais.join('; '), r.ssd.join('; '), r.kw.join('; '), r.cite]);
+  const head = ['ID','Anno','Titolo','Repository','DOI','URL','Autori','Autori DAIS','Parole chiave','Citazione'];
+  const rows = RESULTS.map(r => [r.id, r.year, r.title, r.repo, r.doi, r.url, r._authors.join('; '), r.dais.join('; '), r.kw.join('; '), r.cite]);
   download('datasets-dais.csv', '\ufeff' + [head, ...rows].map(x => x.map(csvCell).join(',')).join('\r\n'), 'text/csv;charset=utf-8');
 }
 function exportBib(){ download('datasets-dais.bib', RESULTS.map(bibtex).join('\n\n'), 'application/x-bibtex;charset=utf-8'); }
@@ -739,7 +733,6 @@ function writeHash(){
   if (S.q) p.set('q', S.q);
   if (S.repoOff.size) p.set('xrepo', [...S.repoOff].join('|'));
   if (S.au) p.set('au', S.au);
-  if (S.ssd) p.set('ssd', S.ssd);
   if (S.kw) p.set('kw', S.kw);
   if (S.y0 != null) p.set('y', S.y0 + '-' + S.y1);
   if (S.onlyNew) p.set('new', '1');
@@ -751,7 +744,7 @@ function writeHash(){
 function readHash(){
   const p = new URLSearchParams(location.hash.slice(1));
   S.q = p.get('q') || ''; S.repoOff = new Set((p.get('xrepo') || '').split('|').filter(Boolean));
-  S.au = p.get('au') || ''; S.ssd = p.get('ssd') || ''; S.kw = p.get('kw') || '';
+  S.au = p.get('au') || ''; S.kw = p.get('kw') || '';
   const y = (p.get('y') || '').match(/^(\d{4})-(\d{4})$/); S.y0 = y ? +y[1] : null; S.y1 = y ? +y[2] : null;
   S.onlyNew = p.get('new') === '1'; S.sort = p.get('sort') || 'auto'; S.open = p.get('ds');
   $('q').value = S.q;
@@ -779,7 +772,6 @@ function bind(){
   $('filters').addEventListener('submit', e => e.preventDefault());
   $('q').addEventListener('input', e => { clearTimeout(qT); qT = setTimeout(() => { S.q = e.target.value.trim(); refresh(); }, 160); });
   $('au').addEventListener('change', e => { S.au = e.target.value; refresh(); });
-  $('ssd').addEventListener('change', e => { S.ssd = e.target.value; refresh(); });
   $('kw').addEventListener('change', e => { S.kw = e.target.value; refresh(); });
   $('fNew').addEventListener('change', e => { S.onlyNew = e.target.checked; refresh(); });
   $('sort').addEventListener('change', e => { S.sort = e.target.value; refresh(); });
@@ -791,7 +783,7 @@ function bind(){
     refresh();
   };
   $('y0').addEventListener('change', years); $('y1').addEventListener('change', years);
-  $('reset').onclick = () => { S.q = ''; $('q').value = ''; S.repoOff.clear(); S.au = S.ssd = S.kw = ''; S.y0 = S.y1 = null; S.onlyNew = false; S.sort = 'auto'; refresh(); };
+  $('reset').onclick = () => { S.q = ''; $('q').value = ''; S.repoOff.clear(); S.au = S.kw = ''; S.y0 = S.y1 = null; S.onlyNew = false; S.sort = 'auto'; refresh(); };
   $('expCsv').onclick = exportCsv; $('expBib').onclick = exportBib;
   $('share').onclick = () => { writeHash(); copy(location.href, T('linkCopied')); };
   $('reload').onclick = () => load(true);
