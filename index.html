@@ -113,8 +113,10 @@ button:disabled{opacity:.55;cursor:progress}
 
 /* ---------- risultati */
 .results{min-height:0;overflow:auto;padding:14px 22px 40px}
-.rhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.rhead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
 .rhead h2{margin:0;font-family:var(--serif);font-weight:600;font-size:19px}
+.sortbox{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sortbox select{width:auto}
 .list{display:grid}
 .ds{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:11px 4px 12px;border-bottom:1px solid var(--rule);cursor:pointer}
 .ds:hover{background:color-mix(in srgb,var(--accent-soft) 55%,transparent)}
@@ -212,14 +214,6 @@ dl.label dd{margin:0;overflow-wrap:anywhere}
         <div class="field"><label for="au" data-i18n="authors">Autore DAIS</label><select id="au"></select></div>
         <div class="field"><label for="kw" data-i18n="keyword">Parola chiave</label><select id="kw"></select></div>
         <div class="chips"><label class="chip"><input type="checkbox" id="fNew"><span class="dot" style="background:var(--r-pangaea)"></span><span data-i18n="newOnly">Solo inserimenti recenti</span></label></div>
-        <div class="field"><label for="sort" data-i18n="sort">Ordina per</label>
-          <select id="sort">
-            <option value="auto" data-i18n="sortAuto">Pertinenza alla ricerca</option>
-            <option value="new" data-i18n="sortNew">Anno, dal più recente</option>
-            <option value="old" data-i18n="sortOld">Anno, dal meno recente</option>
-            <option value="az" data-i18n="sortAz">Titolo A–Z</option>
-          </select>
-        </div>
         <div class="actions">
           <button type="button" id="reset" data-i18n="reset">Azzera filtri</button>
           <button type="button" id="expCsv" data-i18n="csv">Esporta CSV</button>
@@ -232,7 +226,18 @@ dl.label dd{margin:0;overflow-wrap:anywhere}
       <div class="panel" id="panel"></div>
     </aside>
     <main class="results" id="results">
-      <div class="rhead"><h2 id="rcount"></h2><span class="note" id="rnote"></span></div>
+      <div class="rhead">
+        <h2 id="rcount"></h2><span class="note" id="rnote"></span>
+        <div class="sortbox">
+          <label for="sort" class="lbl" data-i18n="sort">Ordina per</label>
+          <select id="sort">
+            <option value="auto" data-i18n="sortAuto">Pertinenza alla ricerca</option>
+            <option value="new" data-i18n="sortNew">Anno, dal più recente</option>
+            <option value="old" data-i18n="sortOld">Anno, dal meno recente</option>
+            <option value="az" data-i18n="sortAz">Titolo A–Z</option>
+          </select>
+        </div>
+      </div>
       <div class="list" id="list"><p class="empty" data-i18n="loading">Caricamento dei dati…</p></div>
       <button type="button" class="more" id="more" hidden></button>
     </main>
@@ -282,7 +287,7 @@ const I18N = {
     reset:'Azzera filtri', csv:'Esporta CSV', bib:'Esporta BibTeX', share:'Copia link', reload:'Aggiorna dati dal foglio',
     loading:'Caricamento dei dati…', datasets:'dataset', repos:'repository', people:'autori DAIS',
     topKw:'Parole chiave più frequenti', topAu:'Autori DAIS più presenti',
-    sortedBy:{rel:'ordinati per pertinenza', new:'dal più recente', old:'dal meno recente', az:'in ordine alfabetico'},
+    sortedBy:{new:'nessuna ricerca attiva: dal più recente'},
     showMore:n=>`Mostra altri ${n}`, noMatch:'Nessun dataset corrisponde ai filtri. Prova a toglierne uno o a usare un termine più generale.',
     yearHover:(y,n)=>`${y}: ${n} dataset`, yearsSel:(a,b)=>a===b?`Anno ${a}`:`Anni ${a}–${b}`, yearHint:'Tocca un anno o trascina per scegliere un intervallo',
     openRepo:'Apri nel repository', copyCite:'Copia citazione', copyBib:'Copia BibTeX', copied:'Copiato negli appunti',
@@ -291,7 +296,7 @@ const I18N = {
     keywords:'Parole chiave', ids:'Identificativi', doi:'DOI', curVer:'Versione', related:'DOI collegati',
     id:'ID catalogo', isNew:'Nuovo', pos:(i,n)=>`${i} / ${n}`, noAbstract:'Descrizione non disponibile.',
     readFail:m=>`Lettura dei dati non riuscita: ${m}. Riprova con “Aggiorna dati dal foglio”.`, notConfigured:'Indirizzo API non configurato: imposta API_URL in index.html.',
-    offline:'Mostro la copia salvata: il foglio non risponde.', updated:'Dati aggiornati', readAt:'letto alle', locale:'it-IT',
+    offline:'Mostro la copia salvata: il foglio non risponde.', updated:'Dati aggiornati', readAt:'Catalogo aggiornato il', locale:'it-IT',
     exported:n=>`Esportati ${n} dataset`, close:'Chiudi', prev:'Precedente', next:'Successivo'
   },
   en:{
@@ -306,7 +311,7 @@ const I18N = {
     reset:'Reset filters', csv:'Export CSV', bib:'Export BibTeX', share:'Copy link', reload:'Reload data from sheet',
     loading:'Loading data…', datasets:'datasets', repos:'repositories', people:'DAIS authors',
     topKw:'Most frequent keywords', topAu:'Most frequent DAIS authors',
-    sortedBy:{rel:'sorted by relevance', new:'newest first', old:'oldest first', az:'alphabetical'},
+    sortedBy:{new:'no active search: newest first'},
     showMore:n=>`Show ${n} more`, noMatch:'No dataset matches the filters. Try removing one or using a broader term.',
     yearHover:(y,n)=>`${y}: ${n} ${n===1?'dataset':'datasets'}`, yearsSel:(a,b)=>a===b?`Year ${a}`:`Years ${a}–${b}`, yearHint:'Tap a year or drag to choose a range',
     openRepo:'Open in repository', copyCite:'Copy citation', copyBib:'Copy BibTeX', copied:'Copied to clipboard',
@@ -315,7 +320,7 @@ const I18N = {
     keywords:'Keywords', ids:'Identifiers', doi:'DOI', curVer:'Version', related:'Related DOIs',
     id:'Catalogue ID', isNew:'New', pos:(i,n)=>`${i} / ${n}`, noAbstract:'No description available.',
     readFail:m=>`Could not read the data: ${m}. Try “Reload data from sheet”.`, notConfigured:'API address not configured: set API_URL in index.html.',
-    offline:'Showing the saved copy: the sheet is not responding.', updated:'Data updated', readAt:'read at', locale:'en-GB',
+    offline:'Showing the saved copy: the sheet is not responding.', updated:'Data updated', readAt:'Catalogue updated on', locale:'en-GB',
     exported:n=>`Exported ${n} datasets`, close:'Close', prev:'Previous', next:'Next'
   }
 };
@@ -480,8 +485,8 @@ function renderCounts(){
 }
 function renderStatus(){
   if (!META) return;
-  const when = META.updated ? new Date(META.updated).toLocaleTimeString(T('locale'), { hour:'2-digit', minute:'2-digit' }) : '';
-  $('src').textContent = [META.spreadsheetName, META.sheetName].filter(Boolean).join(' › ') + (when ? ' · ' + T('readAt') + ' ' + when : '');
+  const d = META.updated ? new Date(META.updated) : null;
+  $('src').textContent = d ? T('readAt') + ' ' + d.toLocaleString(T('locale'), { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
 }
 
 function renderRepo(qt){
@@ -614,7 +619,8 @@ function authorsHtml(r, qt){
 function renderList(qt){
   const n = RESULTS.length;
   $('rcount').textContent = `${fmt(n)} ${T('datasets')}`;
-  $('rnote').textContent = n ? T('sortedBy')[sortKey(qt)] : '';
+  // Con "Pertinenza" e nessun termine cercato l'ordine è per anno: lo si dice accanto al conteggio
+  $('rnote').textContent = n && S.sort === 'auto' && !qt.length ? T('sortedBy').new : '';
   if (!n) { $('list').innerHTML = `<p class="empty">${esc(T('noMatch'))}</p>`; $('more').hidden = true; return; }
   $('list').innerHTML = RESULTS.slice(0, S.limit).map(r => `
     <article class="ds" data-id="${esc(r.id)}"${S.open===r.id?' aria-current="true"':''}>
